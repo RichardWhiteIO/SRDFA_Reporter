@@ -2,7 +2,7 @@
 
 This Python3 script was created to answer the question: "How much data was sent over SRDF/A yesterday on a per VMAX, per SG basis?".
 
-This has been tested successfully on a Mac with Python3.4 and Unisphere v8.0.2.6
+This has been tested successfully on a Mac, Windows, Python2.7, Python3.4 and Unisphere for VMAX v8.0.2.6
 
 **Special Thanks** to [Sean Cummins](https://github.com/seancummins) and [Matt Cowger](https://github.com/mcowger)!
 

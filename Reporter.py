@@ -39,7 +39,7 @@ except KeyError:
 
 if os.path.isfile('SRDFA_Reporter.csv') == False:
 
-    with open('SRDFA_Reporter.csv','w',newline='') as csvfile:
+    with open('SRDFA_Reporter.csv','w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
                                 quotechar=',', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(['24h Period','Array','Storage Group','Total MB Sent by SRDFA'])
@@ -116,7 +116,7 @@ for SYM in SYML:
         for item in RESULT:
            total +=item['SRDFA_MBSent']
 
-        with open('SRDFA_Reporter.csv', 'a',newline='') as csvfile:
+        with open('SRDFA_Reporter.csv', 'a') as csvfile:
             writer = csv.writer(csvfile, delimiter=',',
                                     quotechar=',', quoting=csv.QUOTE_MINIMAL)
             writer.writerow([str(TIMESTAMP), SYM, SG, str(total)])
