@@ -89,7 +89,7 @@ except Exception as e:
 # For each VMAX in Unisphere, get the storage Groups
 for SYM in SYML:
     sURL = "https://" + LOCATION + "/univmax/restapi/provisioning/symmetrix" + SYM + "/storagegroup"
-    sr = requests.get("https://10.25.90.208:8443/univmax/restapi/provisioning/symmetrix/000194900468/storagegroup", auth=(USER,PASS), verify = False)
+    sr = requests.get(sURL, auth=(USER,PASS), verify = False)
     sresponse = sr.json()
     SGL = sresponse["storageGroupId"]
     for SG in SGL:
