@@ -4,6 +4,8 @@ This Python3 script was created to answer the question: "How much data was sent 
 
 This has been tested successfully on a Mac with Python3.4 and Unisphere v8.0.2.6
 
+**Special Thanks** to [Sean Cummins](https://github.com/seancummins) and [Matt Cowger](https://github.com/mcowger)!
+
 ## Usage
 
 Script expects to see three environmentals set:
