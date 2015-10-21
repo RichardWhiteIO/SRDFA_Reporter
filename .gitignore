@@ -1,4 +1,5 @@
 SRDFA_Reporter.csv
+SRDFA_Reporter_Error_Log.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
