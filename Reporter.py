@@ -155,4 +155,3 @@ for SYM in SYML:
             writer = csv.writer(csvfile, delimiter=',',
                                     quotechar=',', quoting=csv.QUOTE_MINIMAL)
             writer.writerow([str(TIMESTAMP), SYM, SG, str(total)])
-

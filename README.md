@@ -13,11 +13,17 @@ Script expects to see three environmentals set:
 - `SRUSER` is the username for Unisphere
 - `SRPASS` is the password for Unisphere
 
-The syntax for setting the environmental variables in Windows is `set SRUSER=smc` in the command prompt. For Mac/Linux you use `export SRUSER=smc` in the terminal window.
+> The syntax for setting the environmental variables in Windows is `set SRUSER=smc` in the command prompt. For Mac/Linux you use `export SRUSER=smc` in the terminal window.
+
+It also requires the `requests` module.
+
+> You can install requests using pip utility that comes included with Python.
 
 The script queries Unisphere for all the VMAX's it sees. It will then walk through every Storage Group in each VMAX and check to see SRDF/A_MBSent metric across a 24 hour period (Yesterday's Midnight to Today's Midnight), skipping any Arrays that aren't local. The data is written to a csv file called `SRDFA_Reporter.csv` in the same directory as the script. If the file already exists, then it will append to the file each time the script is ran. This can be ran as a daily cron job. Any errors that occur will be written/appended to a file called `SRDFA_Reporter_Error_Log.csv`, also in the same directory as the script.
 
+## Known Issues
 
++ I haven't been able to get this to work with a user account tied into AD, only local accounts.
 
 ## License
 No warranty. No support. But free to use and modify. Enjoy.
