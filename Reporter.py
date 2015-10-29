@@ -151,6 +151,8 @@ for SYM in SYML:
         for item in RESULT:
            total +=item['SRDFA_MBSent']
 
+        print("Writing to file: {0}, {1}, {2}".format(TIMESTAMP, SYM, SG))
+
         with open('SRDFA_Reporter.csv', 'a') as csvfile:
             writer = csv.writer(csvfile, delimiter=',',
                                     quotechar=',', quoting=csv.QUOTE_MINIMAL)
