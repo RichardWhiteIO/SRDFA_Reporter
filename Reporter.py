@@ -130,7 +130,6 @@ except TimeoutError:
         "Unisphere couldn't be reached. Please confirm SRUNILOCATION environment variable is properly set and \
              Unisphere is up and running."
     )
-
 except ValueError:
     logger.critical(
         "Login failure. $SRUSER and $SRPASS credentials failed. Please confirm the environmental variables are \
@@ -141,9 +140,6 @@ except Exception as e:
     logger.critical(
         "There was an unexpected error. Details: {}".format(e))
     sys.exit(1)
-
-# Print to screen the list of the available SYMs
-print(symmetrix_list)
 
 # For each VMAX in Unisphere, get the storage Groups
 for symmetrix_id in symmetrix_list:
@@ -159,6 +155,7 @@ for symmetrix_id in symmetrix_list:
     if 'message' in sresponse:
         logger.warn(sresponse.get('message') + ". " + symmetrix_id + " array is being skipped.")
         continue
+
     else:
         storage_group_list = sresponse["storageGroupId"]
 
@@ -183,7 +180,6 @@ for symmetrix_id in symmetrix_list:
             logger.warn(message)
             break
 
-        print(ssresponse)
         result = ssresponse["resultList"]["result"]
 
         total = 0
