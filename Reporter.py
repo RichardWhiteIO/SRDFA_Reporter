@@ -31,7 +31,7 @@ console_write.setLevel(logging.getLevelName(user_level))
 logger = logging.getLogger()
 logger.addHandler(console_write)
 
-if wrong == True:
+if wrong:
     logger.warning("SRLOGGINGLEVEL contains an invalid value. Valid values are: DEBUG, INFO, WARNING, and CRITICAL")
 
 def generate_payload(symmetrix_id, storage_group_id):
@@ -125,11 +125,6 @@ try:
         symmetrix_list = symmetrix_list_response["symmetrixId"]
         print("VMAXs found: " + symmetrix_list)
 
-except TimeoutError:
-    logger.critical(
-        "Unisphere couldn't be reached. Please confirm SRUNILOCATION environment variable is properly set and \
-             Unisphere is up and running."
-    )
 except ValueError:
     logger.critical(
         "Login failure. $SRUSER and $SRPASS credentials failed. Please confirm the environmental variables are \
@@ -138,7 +133,8 @@ except ValueError:
 except Exception as e:
 
     logger.critical(
-        "There was an unexpected error. Details: {}".format(e))
+        "Unisphere couldn't be reached. Please confirm SRUNILOCATION environment variable is properly set and \
+             Unisphere is up and running.. Details: {}".format(e))
     sys.exit(1)
 
 # For each VMAX in Unisphere, get the storage Groups
