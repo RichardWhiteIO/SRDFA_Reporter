@@ -15,28 +15,24 @@ from datetime import time as dt_time
 # Ensure that the value is capitalized
 user_level = os.getenv('SRLOGGINGLEVEL', "INFO").upper()
 valid_response = ["DEBUG", "INFO", "WARNING", "CRITICAL"]
+wrong = False
 
 if user_level not in valid_response:
     # If the user put incorrect response, report the error and set the value back to default.
     user_level = "INFO"
-    logging.basicConfig(
-        level=logging.getLevelName(user_level),
-        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        filename='SRDFA_Reporter_Error_Log.csv')
-    console_write = logging.StreamHandler()
-    console_write.setLevel(logging.getLevelName(user_level))
-    logger = logging.getLogger('').addHandler(console_write)
-    logger.warning("SRLOGGINGLEVEL contains an invalid value. Valid values are: DEBUG, INFO, WARNING, and CRITICAL")
-else:
-    # Otherwise use the value provided by user.
-    logging.basicConfig(
-        level=logging.getLevelName(user_level),
-        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        filename='SRDFA_Reporter_Error_Log.csv')
-    console_write = logging.StreamHandler()
-    console_write.setLevel(logging.getLevelName(user_level))
-    logger = logging.getLogger('').addHandler(console_write)
+    wrong = True
 
+logging.basicConfig(
+        level=logging.getLevelName(user_level),
+        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        filename='SRDFA_Reporter_Error_Log.csv')
+console_write = logging.StreamHandler()
+console_write.setLevel(logging.getLevelName(user_level))
+logger = logging.getLogger()
+logger.addHandler(console_write)
+
+if wrong == True:
+    logger.warning("SRLOGGINGLEVEL contains an invalid value. Valid values are: DEBUG, INFO, WARNING, and CRITICAL")
 
 def generate_payload(symmetrix_id, storage_group_id):
     return {
@@ -120,7 +116,6 @@ try:
 
     if 'message' in symmetrix_list_response:
         # I've seen an issue where Unisphere returns a message of "No Symmetrix's found.
-        print("yes")
         message = symmetrix_list_response.get('message')
         logger.critical(message)
         sys.exit(1)
@@ -128,6 +123,7 @@ try:
     else:
         # Assuming no messages, store the list of VMAX's into symmetrix_list
         symmetrix_list = symmetrix_list_response["symmetrixId"]
+        print("VMAXs found: " + symmetrix_list)
 
 except TimeoutError:
     logger.critical(
