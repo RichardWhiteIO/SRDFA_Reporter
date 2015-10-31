@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 import requests
 import json
@@ -25,7 +25,7 @@ if user_level not in valid_response:
 logging.basicConfig(
         level=logging.getLevelName(user_level),
         format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        filename='SRDFA_Reporter_Error_Log.csv')
+        filename='SRDFA_Reporter_Error_Log.log')
 console_write = logging.StreamHandler()
 console_write.setLevel(logging.getLevelName(user_level))
 logger = logging.getLogger()
@@ -34,26 +34,13 @@ logger.addHandler(console_write)
 if wrong:
     logger.warning("SRLOGGINGLEVEL contains an invalid value. Valid values are: DEBUG, INFO, WARNING, and CRITICAL")
 
-def generate_payload(symmetrix_id, storage_group_id):
-    return {
-        "startDate": unix_ym,
-        "endDate": unix_midnight,
-        "symmetrixId": symmetrix_id,
-        "storageGroupId": storage_group_id,
-        "metrics": ["SRDFA_MBSent"]
-    }
-
-
 # Disable warnings from untrusted server certificates
 try:
     from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 except Exception as e:
-    logging.info("Ignore messages related to insecure SSL certificates. Error: {}".format(e))
-
-# Date
-timestamp = date.today() - timedelta(days=1)
+    logger.info("Ignore messages related to insecure SSL certificates. Error: {}".format(e))
 
 # Get the URL from environmentals. Example: "10.241.209.162:8443"
 try:
@@ -89,6 +76,18 @@ if not os.path.isfile('SRDFA_Reporter.csv'):
             ['24h Period', 'Array', 'Storage Group', 'Total MB Sent by SRDFA'])
 
 
+def generate_payload(symmetrix_id, storage_group_id):
+    return {
+        "startDate": unix_ym,
+        "endDate": unix_midnight,
+        "symmetrixId": symmetrix_id,
+        "storageGroupId": storage_group_id,
+        "metrics": ["SRDFA_MBSent"]
+    }
+
+# Date
+timestamp = date.today() - timedelta(days=1)
+
 # Get today's midnight
 midnight = datetime.combine(date.today(), dt_time.min)
 # Convert to unix epoch time
@@ -123,7 +122,7 @@ try:
     else:
         # Assuming no messages, store the list of VMAX's into symmetrix_list
         symmetrix_list = symmetrix_list_response["symmetrixId"]
-        print("VMAXs found: " + symmetrix_list)
+        print("VMAXs found: " + str(symmetrix_list))
 
 except ValueError:
     logger.critical(
@@ -133,8 +132,8 @@ except ValueError:
 except Exception as e:
 
     logger.critical(
-        "Unisphere couldn't be reached. Please confirm SRUNILOCATION environment variable is properly set and \
-             Unisphere is up and running.. Details: {}".format(e))
+        "Unisphere couldn't be reached. Please confirm SRUNILOCATION environment variable is properly set and "
+        "Unisphere is up and running.. Details: {}".format(e))
     sys.exit(1)
 
 # For each VMAX in Unisphere, get the storage Groups
