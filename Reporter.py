@@ -7,6 +7,7 @@ import os
 import logging
 import sys
 import csv
+import redis
 from datetime import datetime, date, timedelta
 from datetime import time as dt_time
 

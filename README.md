@@ -12,6 +12,8 @@ Script expects to see three environmentals set:
 - `SRUNILOCATION` is the IP:Port of where Unisphere is located. Example: 10.20.30.40:8443
 - `SRUSER` is the username for Unisphere
 - `SRPASS` is the password for Unisphere
+- `SRLOGGINGLEVEL` is an optional setting for overriding the default logging level (WARNING)
+  - Acceptable values: DEBUG, INFO, WARNING, and CRITICAL.
 
 > The syntax for setting the environmental variables in Windows is `set SRUSER=smc` in the command prompt. For Mac/Linux you use `export SRUSER=smc` in the terminal window.
 
