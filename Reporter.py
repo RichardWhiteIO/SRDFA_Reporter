@@ -25,7 +25,7 @@ if user_level not in valid_response:
 logging.basicConfig(
         level=logging.getLevelName(user_level),
         format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-        filename='SRDFA_Reporter_Error_Log.log')
+        filename='SRDFA_Reporter_Error.log')
 console_write = logging.StreamHandler()
 console_write.setLevel(logging.getLevelName(user_level))
 logger = logging.getLogger()
