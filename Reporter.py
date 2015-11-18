@@ -6,7 +6,7 @@ import time
 import os
 import logging
 import sys
-import csv
+import psycopg2
 from datetime import datetime, date, timedelta
 from datetime import time as dt_time
 
