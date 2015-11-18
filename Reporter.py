@@ -63,7 +63,35 @@ try:
     password = os.environ['SRPASS']
 except KeyError:
     logger.critical('Need a password. Please set the environment variable SRPASS to the password of Unisphere using '
-                    'either "export SRUSER=password" (linux command) or "set SRUSER=password" (Windows command)')
+                    'either "export SRPASS=password" (linux command) or "set SRPASS=password" (Windows command)')
+    sys.exit(1)
+
+try:
+    dbhost = os.environ['SRDBHOST']
+except KeyError:
+    logger.critical('Need a database host. Please set the environment variable SRDBHOST to the IP of the PostgreSQL database using '
+                    'either "export SRDBHOST=IP" (linux command) or "set SRDBHOST=IP" (Windows command)')
+    sys.exit(1)
+
+try:
+    dbname = os.environ['SRDBNAME']
+except KeyError:
+    logger.critical('Need a database name. Please set the environment variable SRDBNAME to the name of the PostgreSQL database using '
+                    'either "export SRDBNAME=name" (linux command) or "set SRDBNAME=name" (Windows command)')
+    sys.exit(1)
+
+try:
+    dbuser = os.environ['SRDBUSER']
+except KeyError:
+    logger.critical('Need a database user. Please set the environment variable SRDBUSER to the username of the PostgreSQL database using '
+                    'either "export SRDBUSER=username" (linux command) or "set SRDBUSER=username" (Windows command)')
+    sys.exit(1)
+
+try:
+    dbpass = os.environ['SRDBPASS']
+except KeyError:
+    logger.critical('Need a database password. Please set the environment variable SRDPPASS to the password of the PostgreSQL database using '
+                    'either "export SRDBPASS=password" (linux command) or "set SRDBPASS=password" (Windows command)')
     sys.exit(1)
 
 def generate_payload(symmetrix_id, storage_group_id):
