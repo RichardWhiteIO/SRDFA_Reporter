@@ -22,6 +22,9 @@ if user_level not in valid_response:
     user_level = "INFO"
     wrong = True
 
+dbhost = os.getenv('SRDBHOST', "localhost");
+sys.exit(1);
+
 logging.basicConfig(
         level=logging.getLevelName(user_level),
         format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
@@ -64,13 +67,6 @@ try:
 except KeyError:
     logger.critical('Need a password. Please set the environment variable SRPASS to the password of Unisphere using '
                     'either "export SRPASS=password" (linux command) or "set SRPASS=password" (Windows command)')
-    sys.exit(1)
-
-try:
-    dbhost = os.environ['SRDBHOST']
-except KeyError:
-    logger.critical('Need a database host. Please set the environment variable SRDBHOST to the IP of the PostgreSQL database using '
-                    'either "export SRDBHOST=IP" (linux command) or "set SRDBHOST=IP" (Windows command)')
     sys.exit(1)
 
 try:
